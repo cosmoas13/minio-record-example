@@ -1,0 +1,73 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.fiv-viv {
+ height: 2rem;
+    width: 2rem;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn {
+  margin-bottom: 16px;
+}
+
+.btn button {
+  margin: 0 8px;
+  border: teal 1px solid;
+  color: teal;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  width: 130px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.btn button:hover {
+  margin: 0 8px;
+  border: none;
+  color: white;
+  background-color: teal;
+  border-radius: 8px;
+  width: 130px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.wrap {
+  border: 2px teal solid;
+  border-radius: 8px;
+  margin: 8px;
+}
+
+.header {
+  background-color: teal;
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.header img {
+  display: flex;
+  margin: 8px;
+}
