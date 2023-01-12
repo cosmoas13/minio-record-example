@@ -36,29 +36,35 @@ export const Recorder = ({ fileName }) => {
 	};
 
 	const uploadFile = () => {
-		const file = URL.createObjectURL(blob);
+		// const file = URL.createObjectURL(blob);
 		const objKey = blob.name;
 		const metaData = {
 			'Content-Type': blob.type,
 		};
 
-		console.log(blob, '>>>');
-
-		console.log(file, '>>> test');
-		mc.putObject(
-			'testbucket',
-			objKey,
-			file,
-			metaData,
-			blob.size,
-			function (err, objInfo) {
-				if (err) {
-					return console.log(err);
+		const fileReader = new FileReader();
+		fileReader.readAsArrayBuffer(blob);
+		fileReader.onload = (event) => {
+			console.log(event, '>>> event');
+			const { target } = event;
+			const res = target.result || {};
+			const uint = new Uint8Array(res);
+			console.log(Buffer.from(uint), '>>> target');
+			mc.putObject(
+				'testbucket',
+				objKey,
+				Buffer.from(uint),
+				metaData,
+				blob.size,
+				function (err, objInfo) {
+					if (err) {
+						return console.log(err);
+					}
+					console.log('Success', objInfo.etag, objInfo.versionId);
+					alert('Success', objInfo.etag, objInfo.versionId);
 				}
-				console.log('Success', objInfo.etag, objInfo.versionId);
-				alert('Success', objInfo.etag, objInfo.versionId);
-			}
-		);
+			);
+		};
 	};
 
 	return (
@@ -73,7 +79,6 @@ export const Recorder = ({ fileName }) => {
 					<button onClick={stopRecording}> Stop Recording</button>
 					<button onClick={() => handleSave()}>SAVE</button>
 					<button onClick={uploadFile}>Kirim Ke MinIO</button>
-					<input type='file' />
 				</div>
 				<div className='wrap video'>
 					{blob && <video src={URL.createObjectURL(blob)} controls autoPlay />}
